@@ -4,7 +4,7 @@ import java.util.ArrayList;
 class square {
 
     // Dynamic programming approach to compute the minimum number of squares that sum up to a given integer n
-    public static ArrayList<Integer> SquareDollars(int n) {
+    public static ArrayList<Integer> SquareSums(int n) {
         // Initialize an array G to store the minimum number of squares needed for each integer up to n
         int[] G = new int[n + 1];
         // HashMap to store the list of squares that sum up to each integer up to n
@@ -58,10 +58,26 @@ class square {
     }
 
     public static void main(String[] args) {
-        //Convert string to int.
-        int i = Integer.parseInt(args[0]);
-        // Print the result of SquareDollars method for the given integer
-        System.out.println("The four squares that add up to " + i + ":");
-        System.out.print(SquareDollars(i));
+        int i = 0;
+        //Only accepts nonnegative integers.
+        try{
+            //Convert string to int.
+            i = Integer.parseInt(args[0]);
+            if(i < 0){
+                throw new IllegalArgumentException("The number must be nonnegative.");
+            }
+        }
+        catch(Exception e) {
+            System.out.print("\"");
+            for(int j = 0; j < args.length; j++){
+                System.out.print(args[j] + " ");
+            }
+            System.out.println("\b\" is not a nonnegative integer.");
+            System.out.println("Please supply a nonnegative integer.");
+            System.exit(1);
+        }
+        // Print the result of SquareSums method for the given integer
+        System.out.println("The four perfect squares that add up to " + i + ":");
+        System.out.print(SquareSums(i));
     }
 }
