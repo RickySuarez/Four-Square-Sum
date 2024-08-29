@@ -1,10 +1,9 @@
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 class square {
 
-    // Method to compute the minimum number of squares that sum up to a given integer n
+    // Dynamic programming approach to compute the minimum number of squares that sum up to a given integer n
     public static ArrayList<Integer> SquareDollars(int n) {
         // Initialize an array G to store the minimum number of squares needed for each integer up to n
         int[] G = new int[n + 1];
@@ -59,14 +58,10 @@ class square {
     }
 
     public static void main(String[] args) {
-        int i;
-        Scanner input = new Scanner(System.in);
-        // Prompt the user to input an integer
-        System.out.print("Please input an integer: ");
-        i = input.nextInt();
+        //Convert string to int.
+        int i = Integer.parseInt(args[0]);
         // Print the result of SquareDollars method for the given integer
         System.out.println("The four squares that add up to " + i + ":");
         System.out.print(SquareDollars(i));
-        input.close(); // Close the scanner
     }
 }
