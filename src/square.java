@@ -4,7 +4,7 @@ import java.util.ArrayList;
 class square {
 
     // Dynamic programming approach to compute the minimum number of squares that sum up to a given integer n
-    public static ArrayList<Integer> SquareSums(int n) {
+    public static void SquareSums(int n) {
         // Initialize an array G to store the minimum number of squares needed for each integer up to n
         int[] G = new int[n + 1];
         // HashMap to store the list of squares that sum up to each integer up to n
@@ -24,7 +24,7 @@ class square {
                 int c = i / (k * k); // Number of squares of size k*k
                 int r = i % (k * k); // Remaining value after using c squares of size k*k
                 // If using c squares of size k*k is better than the current min, update min and pre
-                if (min > c + G[r]) {
+                if (min >= c + G[r]) {
                     ArrayList<Integer> list1 = new ArrayList<>();
                     ArrayList<Integer> list2 = pre.get(r); // List of squares summing up to remaining value r
                     // Add c squares of size k*k to list1
@@ -38,23 +38,23 @@ class square {
                     pre.put(i, list1);
                     // Update the minimum number of squares needed for i
                     min = c + G[r];
+                    if(min <= 4 && i == n){
+                        ArrayList<Integer> result = pre.get(n);
+                        // If there are more than 4 squares, remove the last one
+                        if (result.size() > 4) {
+                            result.remove(result.size() - 1);
+                        }
+                        // Ensure the result list has exactly 4 elements by padding with 0s if necessary
+                        while (result.size() < 4) {
+                            result.add(0);
+                        }
+                        System.out.println(result); // Return the list of squares
+                    }
                 }
             }
             // Store the minimum number of squares needed for i
             G[i] = min;
         }
-
-        // Retrieve the result list of squares for the integer n
-        ArrayList<Integer> result = pre.get(n);
-        // If there are more than 4 squares, remove the last one
-        if (result.size() > 4) {
-            result.remove(result.size() - 1);
-        }
-        // Ensure the result list has exactly 4 elements by padding with 0s if necessary
-        while (result.size() < 4) {
-            result.add(0);
-        }
-        return result; // Return the list of squares
     }
 
     public static void main(String[] args) {
@@ -78,6 +78,6 @@ class square {
         }
         // Print the result of SquareSums method for the given integer
         System.out.println("The four perfect squares that add up to " + i + ":");
-        System.out.print(SquareSums(i));
+        SquareSums(i);
     }
 }
